@@ -34,7 +34,11 @@ jobs:
       - name: Build
         run: npm run build
         env:
+          NODE_ENV: production
           GITHUB_REPOSITORY: ${{ github.repository }}
+          # Uncomment and set if automatic detection doesn't work:
+          # VITE_BASE_PATH: '/your-repo-name/'
+          # For user pages (username.github.io), use: VITE_BASE_PATH: '/'
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

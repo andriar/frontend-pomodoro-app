@@ -51,7 +51,30 @@ You can also trigger a manual deployment by:
 - Selecting the "Deploy to GitHub Pages" workflow
 - Clicking **Run workflow**
 
+### Troubleshooting
+
+**If you see 404 errors for assets (like `/src/main.ts`):**
+
+The base path might not be configured correctly. You can manually set it:
+
+1. **Option 1: Set environment variable in GitHub Actions**
+   - Edit `.github/workflows/deploy.yml`
+   - In the "Build" step, add:
+     ```yaml
+     env:
+       VITE_BASE_PATH: '/your-repo-name/'
+     ```
+   - Replace `your-repo-name` with your actual repository name
+   - For user/organization pages (username.github.io), use: `VITE_BASE_PATH: '/'`
+
+2. **Option 2: Update vite.config.ts directly**
+   - Open `vite.config.ts`
+   - Change the `base` return value in `getBasePath()` function to match your repository name
+   - Example: `return '/pomodoro-app/'` or `return '/'` for user pages
+
 ### Notes
 
 - The base path is automatically configured based on your repository name
+- For project pages: `https://username.github.io/repo-name/` → base: `/repo-name/`
+- For user/organization pages: `https://username.github.io/` → base: `/`
 - If you want to deploy to a custom domain, update the `base` path in `vite.config.ts`
